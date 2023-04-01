@@ -1,0 +1,81 @@
+{% block content %}
+<h1> {{user.username}}'s Order</h1>
+{{prompt}}
+    <h2>as an owner (open status)</h2>
+    {% for ride in ownerOpen %}
+        <p>This ride to {{ride.destination}} arriving at {{ride.arrival_time }} already has {{ride.capacity}} passengers, which vehicle type is  {{ride.vehicle_type}}</p>
+        {% if ride.is_shared %}
+            <p>You have shares : </p>
+            {% for sh in ride.sharer.all %}
+                <p>{{sh.username}}</p>
+            {% endfor %}
+        {% else %}
+            <p>This ride cannot be shared</p>
+        {% endif %}
+    <a href="/user/updateRide/{{ride.id}}/">Edit Ride</a><br>
+    <a href="/user/deleteOwner/{{ride.id}}/">Cancel Ride</a><br>
+    {% endfor %}
+
+
+    <h2>as an owner (confirm status)</h2>
+    {% for ride in ownerConfirm %}
+        <p>This ride has driver : {{ride.driver.username}}, which vehicle type is  {{ride.vehicle_type}}</p>
+        {% if ride.is_shared %}
+            <p>You have shares : </p>
+            {% for sh in ride.sharer.all %}
+                <p>{{sh.username}}</p>
+            {% endfor %}
+        {% else %}
+            <p>This ride cannot be shared</p>
+        {% endif %}
+    {% endfor %}
+
+    <h2>as a sharer (open status)</h2>
+    {% for ride in shareOpen%}
+        <p>This ride to {{ride.destination}} arriving at {{ride.arrival_time }} already has {{ride.capacity}} passengers, which vehicle type is  {{ride.vehicle_type}}</p>
+        {% if ride.is_shared %}
+            <p>You have shares : </p>
+            {% for sh in ride.sharer.all %}
+                <p>{{sh.username}}</p>
+            {% endfor %}
+            <p>{{ride.owner.username}}</p>
+        {% else %}
+            <p>This ride cannot be shared</p>
+        {% endif %}
+    <a href="/user/updateRide/{{ride.id}}/">Edit Ride</a><br>
+    <a href="/user/deleteSharer/{{ride.id}}/">Cancle Ride</a><br>
+    {% endfor %}
+
+
+    <h2>as a sharer (confirm status)</h2>
+    {% for ride in shareConfirm %}
+        <p>This ride has driver : {{ride.driver.username}}, which vehicle type is  {{ride.vehicle_type}}</p>
+        {% if ride.is_shared %}
+        <p>You have shares : </p>
+        {% for sh in ride.sharer.all %}
+            <p>{{sh.username}}</p>
+        {% endfor %}
+        {% else %}
+            <p>This ride cannot be shared</p>
+        {% endif %}
+    {% endfor %}
+
+<!--    <h2>as a driver</h2>
+    {% for ride in driver%}
+        <p>This ride has {{ride.capacity}} passengers</p>
+        <p>They are:</p>
+        <p>{{ride.owner.username}}</p>
+        {% if ride.is_shared %}
+            {% for sh in ride.sharer.all %}
+                <p>{{sh.username}}</p>
+            {% endfor %}
+        {% endif %}
+    {% endfor %} -->
+{% endblock %}
+
+<p><a href="/user/index/">Homepage</a></p>
+
+
+
+
+

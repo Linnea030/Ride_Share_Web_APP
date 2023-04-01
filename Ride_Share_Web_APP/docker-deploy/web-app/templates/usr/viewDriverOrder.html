@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>View Order</title>
+</head>
+
+<body>
+    <h1>{{user.username}}'s Rides</h1>
+    {{prompt}}
+    <h2>Your ride list</h2>
+
+<table border="1">
+    <tr><td>ID</td><td>arrival_time</td><td>destination</td>
+        <td>Number of passagers</td><td>vehicle_type</td><td>is_shared</td>
+        <td>special_info</td><td>owner</td><td>sharer</td><td>completed</td>
+    </tr>
+    {% for order in list %}
+        {% if order.status == 1 %}
+        <tr><td>{{order.id}}</td>
+            <td>{{order.arrival_time}}</td>
+            <td>{{order.destination}}</td>
+            <td>{{order.capacity}}</td>
+            <td>{{order.vehicle_type}}</td>
+            <td>{{order.is_shared}}</td>
+            <td>{{order.special_info}}</td>
+            <td>{{order.owner}}</td>
+            <td>
+                {% for people in user.sharer.all %}
+                    {{people}}
+                {% endfor %}
+            </td>
+            <td><a href="/user/driverCompleted/{{order.id}}/">Completed</a><br></td>
+        </tr>
+        {% endif %}
+    {% endfor %}
+
+</table>
+</body>
+<p><a href="/user/driverMode/">DriverPage</a></p>
+</html>

@@ -1,0 +1,21 @@
+ECE568 HW1 Django Web-App
+
+Yunjia Liu
+Yixin Cao
+
+Danger Log
+
+1/28:
+We have used the contrib.admin package for user registration and login functions, in order to make passwords more difficult and reduce the possibility of invalid passwords and mailboxes appearing. This reduces the likelihood of problems with maintenance and emailing.
+
+1/31:
+Today it was discovered that after a period of inactivity the user would become anonymous after logging in, resulting in an inability to jump to the appropriate screen correctly. This resulted in an error being reported.
+
+2/1:
+If a user is both a driver and a user, he can take his own orders. However, this is logically fine, but it does not make sense, so the exclude() function is used to ensure that the driver himself cannot search for orders he has sent and orders for which he is a sharer.
+
+2/3:
+We find that the user can request an order that is before the current time. This is quite unconventional. There is a time overlap between the user's two orders. Similarly, a driver taking an order will also have overlapping times. The time zone package can be used to restrict the status of order creation and acceptance.
+
+2/6:
+We do not have multi-threaded concurrency for the database and this code is a thread-unsafe version. In the future, locks or other techniques could be used to ensure that there is no data competition between two threads. This ensures the security of the whole business.

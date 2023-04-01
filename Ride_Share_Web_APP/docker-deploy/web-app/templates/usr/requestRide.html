@@ -1,0 +1,13 @@
+{% block content %}
+<h2>Request a ride now!</h2>
+<form method="post">
+  {% csrf_token %}
+  <body>
+ Your arrive time format should like "YYYY-MM-DD HH:MM:SS"
+ </body>
+  {{ form.as_p }}
+  <button type="submit">Request Now</button>
+</form>
+
+{% endblock %}
+<p><a href="/user/index/">Back</a></p>

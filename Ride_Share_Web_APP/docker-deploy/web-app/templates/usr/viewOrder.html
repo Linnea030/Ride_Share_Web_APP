@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>View Order</title>
+</head>
+
+<body>
+
+    <h1>{{user.username}}'s Orders</h1>
+    <h3>Your open ride</h3>
+    
+<table border="1">
+    <tr><td>ID</td><td>owner</td><td>arrival_time</td>
+        <td>destination</td><td>Number of passagers</td><td>vehicle_type</td>
+        <td>is_shared</td><td>note</td><td>sharer</td><td>As owner or sharer</td>
+    </tr>
+    {% for user in list_owner %}
+        {% if user.status == 0 %}
+        <tr><td>{{user.id}}</td>
+            <td>{{user.owner}}</td>
+            <td>{{user.arrival_time}}</td>
+            <td>{{user.destination}}</td>
+            <td>{{user.capacity}}</td>
+            <td>{{user.vehicle_type}}</td>
+            <td>{{user.is_shared}}</td>
+            <td>{{user.special_info}}</td>
+            <td>
+                {% for people in user.sharer.all %}
+                    {{people}}
+                {% endfor %}
+            </td>
+            <td>owner</td>
+        </tr>
+        {% endif %}
+    {% endfor %}
+    {% for user in list_sharer %}
+        {% if user.status == 0 %}
+        <tr><td>{{user.id}}</td>
+            <td>{{user.owner}}</td>
+            <td>{{user.arrival_time}}</td>
+            <td>{{user.destination}}</td>
+            <td>{{user.capacity}}</td>
+            <td>{{user.vehicle_type}}</td>
+            <td>{{user.is_shared}}</td>
+            <td>{{user.special_info}}</td>
+            <td>
+                {% for people in user.sharer.all %}
+                    {{people}}
+                {% endfor %}
+            </td>
+            <td>sharer</td>
+        </tr>
+        {% endif %}
+    {% endfor %}
+
+</table>
+    <h3>Your confirmed ride</h3>
+    <table border="1">
+        <tr><td>ID</td><td>owner</td><td>arrival_time</td>
+            <td>destination</td><td>Number of passagers</td><td>vehicle_type</td>
+            <td>is_shared</td><td>note</td><td>sharer</td>
+            <td>driver</td><td>As owner or sharer</td>
+            <!-- <td>plate_num</td><td>driver's note</td>
+            <td>Max capacity of car</td> -->
+        </tr>
+        {% for user in list_owner %}
+            {% if user.status == 1 %}
+            <tr><td>{{user.id}}</td>
+                <td>{{user.owner}}</td>
+                <td>{{user.arrival_time}}</td>
+                <td>{{user.destination}}</td>
+                <td>{{user.capacity}}</td>
+                <td>{{user.vehicle_type}}</td>
+                <td>{{user.is_shared}}</td>
+                <td>{{user.special_info}}</td>
+                <td>
+                    {% for people in user.sharer.all %}
+                        {{people}}
+                    {% endfor %}
+                </td>
+                <td>{{user.driver}}</td>
+                <!-- <td>{{user.driver.plate_num}}</td>
+                <td>{{user.driver.special_info}}</td>
+                <td>{{user.driver.max_capacity}}</td> -->
+                <td>owner</td>
+            </tr>
+            {% endif %}
+        {% endfor %}
+
+
+
+        {% for user in list_sharer %}
+            {% if user.status == 1 %}
+            <tr><td>{{user.id}}</td>
+                <td>{{user.owner}}</td>
+                <td>{{user.arrival_time}}</td>
+                <td>{{user.destination}}</td>
+                <td>{{user.capacity}}</td>
+                <td>{{user.vehicle_type}}</td>
+                <td>{{user.is_shared}}</td>
+                <td>{{user.special_info}}</td>
+                <td>
+                    {% for people in user.sharer.all %}
+                        {{people}}
+                    {% endfor %}
+                </td>
+                <td>{{user.driver}}</td>
+                <!-- <td>{{user.driver.vehicle.plate_num}}</td>
+                <td>{{user.driver.special_info}}</td>
+                <td>{{user.driver.max_capacity}}</td> -->
+                <td>owner</td>
+            </tr>
+            {% endif %}
+        {% endfor %}
+    </table>
+</body>
+<p><a href="/user/index/">Homepage</a></p>
+</html>

@@ -1,0 +1,23 @@
+{% block content %}
+<h2> {{user.username}}'s Profile</h2>
+{{prompt}}
+<form method="post">
+  {% csrf_token %}
+    {{ uForm.email }}
+  <button type="submit">Update Email</button>
+</form>
+{% if user.profile.is_driver == 1 %}
+    <form method="post">
+        {% csrf_token %}
+            {{ vForm.as_p }}
+        <button type="submit">Update Vechicle</button>
+    </form>
+    <p><a href="/user/driverQuit/">Don't want to be a driver anymore</a></p>
+
+{% else %}
+        <p><a href="/user/regDriver/">Become a driver</a></p>
+
+{% endif %}
+<p><a href="/user/index/">Homepage</a></p>
+{% endblock %}
+

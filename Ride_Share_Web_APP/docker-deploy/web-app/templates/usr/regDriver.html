@@ -1,0 +1,9 @@
+{% block content %}
+<h2>Become a driver now!</h2>
+<form method="post">
+  {% csrf_token %}
+  {{ form.as_p }}
+  <button type="submit">Register Now</button>
+</form>
+<p><a href="/user/index/">Homepage</a></p>
+{% endblock %}

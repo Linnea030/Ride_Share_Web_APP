@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+    <title>DriveConfirmPage</title>
+</head>
+
+    <h1>All Open Orders for driver</h1>
+    {% for ride in orders %}
+                <h4>Order owner: <b>{{ ride.owner }}</b>,</h4>
+                <h4>Destination: <b>{{ ride.destination }}</b>,   </h4>
+                <h4>Arrival time: <b>{{ ride.arrival_time }}</b>,   </h4>
+                <h4>Capacity: <b>{{ ride.capacity }}</b></h4>
+                <h4>Vehicle type: <b>{{ ride.vehicle_type }}</b></h4>
+            <h4>Sharers of order:</h4>
+            {% for person in ride.sharer.all %}
+                <h4>{{ person.username }},</h4>
+            {% endfor %}
+            
+            <h4>Note of order: {{ ride.special_info }}</h4>
+
+            {% if ride.status == 0 %}
+                <p><a class="article-title" href="/user/driverConfirm/{{ride.id}}/">Confirm</a></p>
+            {% endif %}
+
+    {% endfor %}
+
+<p><a href="/user/driverSearch/">Back</a></p>
